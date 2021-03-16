@@ -112,7 +112,13 @@ end
 // BARREL SHIFTER
 always_comb begin
   // Reverse data to the shifter for SHL operations
-  data = rev ? {<<{op1}} : op1;
+  //// TODO: Quartus does not support SystemVerilog stream operators
+  //// original code was: data = rev ? {<<{op1}} : op1;
+  data = rev ? {op1[00], op1[01], op1[02], op1[03] ,op1[04], op1[05], op1[06], op1[07],
+    op1[08], op1[09], op1[10], op1[11], op1[12], op1[13], op1[14], op1[15], 
+    op1[16], op1[17], op1[18], op1[19], op1[20], op1[21], op1[22], op1[23], 
+    op1[24], op1[25], op1[26], op1[27], op1[28], op1[29], op1[30], op1[31], } 
+    : op1;
   shift_in = cin & op1[31];
   shamt = op2[4:0];
 
@@ -126,7 +132,13 @@ always_comb begin
   p4 = shamt[4] ? {{16{shift_in}}, p3[31:16]}  : p3;
 
   // Reverse last to get SHL result
-  r_shift = rev ? {<<{p4}} : p4;
+  //// TODO: Quartus does not support SystemVerilog stream operators
+  //// original code was: r_shift = rev ? {<<{p4}} : p4;
+  r_shift = rev ? {p4[00], p4[01], p4[02], p4[03] ,p4[04], p4[05], p4[06], p4[07],
+    p4[08], p4[09], p4[10], p4[11], p4[12], p4[13], p4[14], p4[15], 
+    p4[16], p4[17], p4[18], p4[19], p4[20], p4[21], p4[22], p4[23], 
+    p4[24], p4[25], p4[26], p4[27], p4[28], p4[29], p4[30], p4[31], } 
+    : op1;
 end
 
 // ============================================================

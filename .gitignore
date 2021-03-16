@@ -1,0 +1,12 @@
+db/*
+incremental_db/*
+*.rpt
+*.smsg
+*.summary
+riscv_core_altera.jdi
+riscv_core_altera.sof
+riscv_core_altera.sld
+riscv_core_altera.pin
+riscv_core_altera.done
+c5_pin_model_dump.txt
+
