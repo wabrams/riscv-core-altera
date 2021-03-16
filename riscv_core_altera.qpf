@@ -1,0 +1,6 @@
+DATE = "11:59:27 March 16, 2021"
+QUARTUS_VERSION = "16.0.2"
+
+# Revisions
+
+PROJECT_REVISION = "riscv_core_altera"
