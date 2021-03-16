@@ -6,12 +6,11 @@ set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSXFC6D6F31C6
 set_global_assignment -name TOP_LEVEL_ENTITY "riscv_core_altera"
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "16.0.2"
-set_global_assignment -name LAST_QUARTUS_VERSION "16.0.2"
+set_global_assignment -name LAST_QUARTUS_VERSION "20.1.0 Standard Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "11:59:27 MARCH 16,2021"
 set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
 set_global_assignment -name DEVICE_FILTER_PIN_COUNT 896
 set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 6
-set_global_assignment -name SDC_FILE riscv_core_altera.SDC
 
 #============================================================
 # CLOCK
@@ -333,3 +332,22 @@ set_location_assignment PIN_AB26 -to PS2_DAT2
 # End of pin assignments by Terasic System Builder
 #============================================================
 
+
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_types.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_RF.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_lsu.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_IF.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_ID.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_hcu.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_EX.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_csr.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_counter64.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_core.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_branch.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_alu.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/kronos/kronos_agu.sv
+set_global_assignment -name SDC_FILE riscv_core_altera.SDC
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
