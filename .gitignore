@@ -1,5 +1,6 @@
 db/*
 incremental_db/*
+greybox_tmp/*
 *.rpt
 *.smsg
 *.summary
