@@ -22,9 +22,6 @@ module riscv_core_altera
 	output DRAM_CKE, output DRAM_CLK, output DRAM_CS_N, inout [15:0] DRAM_DQ,
 	output DRAM_LDQM, output DRAM_RAS_N, output DRAM_UDQM, output DRAM_WE_N
 );
-
-	logic clk, rstz;
-
 	// Instruction memory interface
 	logic [31:0] instr_addr;
 	logic [31:0] instr_data;
@@ -44,6 +41,46 @@ module riscv_core_altera
 	logic software_interrupt;
 	logic timer_interrupt;
 	logic external_interrupt;
+
+
+	////////////////////////////////////////////////////////////////
+	//// Reset Button
+	//////// Reset signal comes from PB3
+	////////////////////////////////////////////////////////////////
+	logic rst, rstz;
+	button PB_RST(KEY[3], rst);
+	assign rstz = ~rst;
+
+	////////////////////////////////////////////////////////////////
+	//// Clock Management
+	//////// Onboard clock is scaled down using PLL
+	//////// Debug clock comes from manual button presses
+	//////// System clock is either from PLL or DBG, based on SW9
+	////////////////////////////////////////////////////////////////
+	logic pll_clk;
+	pll PLL_SYSTEM_CLOCK(CLOCK_50, rst, pll_clk); // PLL resets on a HIGH reset value
+
+	logic div_clk;
+	clkdiv CLOCK_DIVIDER(pll_clk, div_clk);
+
+	logic dbg_clk;
+	button PB_CLOCK(KEY[2], dbg_clk);
+
+  // Clock signal
+	logic clk;
+
+	logic mux_clk_sel;
+	switch SW_MUX_CLOCK(SW[9], mux_clk_sel);
+
+	// TODO: clock gating isn't a great practice, this should only happen if the .vh DEBUG is defined
+	always_comb begin : clockMux
+		clk = (mux_clk_sel) ? dbg_clk : pll_clk;
+	end
+	
+	assign LEDR[0] = pll_clk;
+	assign LEDR[1] = rstz;
+	assign LEDR[2] = 1'b0;
+	assign LEDR[3] = 1'b1;
 
 	kronos_core #(
 		.BOOT_ADDR            (32'h0),
