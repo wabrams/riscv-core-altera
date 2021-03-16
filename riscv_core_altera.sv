@@ -53,7 +53,7 @@ module riscv_core_altera
 
 	////////////////////////////////////////////////////////////////
 	//// Clock Management
-	//////// Onboard clock is scaled down using PLL
+	//////// Onboard clock is scaled down using PLL, then CLKDIV
 	//////// Debug clock comes from manual button presses
 	//////// System clock is either from PLL or DBG, based on SW9
 	////////////////////////////////////////////////////////////////
@@ -61,7 +61,7 @@ module riscv_core_altera
 	pll PLL_SYSTEM_CLOCK(CLOCK_50, rst, pll_clk); // PLL resets on a HIGH reset value
 
 	logic div_clk;
-	clkdiv CLOCK_DIVIDER(pll_clk, div_clk);
+	clkdiv #(.DIVIDER (5000000)) CLOCK_DIVIDER(pll_clk, rstz, div_clk);
 
 	logic dbg_clk;
 	button PB_CLOCK(KEY[2], dbg_clk);
@@ -74,7 +74,7 @@ module riscv_core_altera
 
 	// TODO: clock gating isn't a great practice, this should only happen if the .vh DEBUG is defined
 	always_comb begin : clockMux
-		clk = (mux_clk_sel) ? dbg_clk : pll_clk;
+		clk = (mux_clk_sel) ? dbg_clk : div_clk;
 	end
 	
 	assign LEDR[0] = pll_clk;
