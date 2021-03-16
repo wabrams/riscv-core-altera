@@ -23,6 +23,53 @@ module riscv_core_altera
 	output DRAM_LDQM, output DRAM_RAS_N, output DRAM_UDQM, output DRAM_WE_N
 );
 
+	logic clk, rstz;
 
+	// Instruction memory interface
+	logic [31:0] instr_addr;
+	logic [31:0] instr_data;
+	logic instr_req;
+	logic instr_ack;
+
+	// Data memory interface
+	logic [31:0] data_addr;
+	logic [31:0] data_rd_data;
+	logic [31:0] data_wr_data;
+	logic [3:0] data_mask;
+	logic data_wr_en;
+	logic data_req;
+	logic data_ack;
+
+	// Interrupt Sources
+	logic software_interrupt;
+	logic timer_interrupt;
+	logic external_interrupt;
+
+	kronos_core #(
+		.BOOT_ADDR            (32'h0),
+		.FAST_BRANCH          (0    ),
+		.EN_COUNTERS          (1    ),
+		.EN_COUNTERS64B       (0    ),
+		.CATCH_ILLEGAL_INSTR  (1    ),
+		.CATCH_MISALIGNED_JMP (1    ),
+		.CATCH_MISALIGNED_LDST(1    )
+	) u_core (
+			.clk               (clk               ),
+			.rstz              (rstz              ),
+			.instr_addr        (instr_addr        ),
+			.instr_data        (instr_data        ),
+			.instr_req         (instr_req         ),
+			.instr_ack         (instr_ack         ),
+			.data_addr         (data_addr         ),
+			.data_rd_data      (data_rd_data      ),
+			.data_wr_data      (data_wr_data      ),
+			.data_mask         (data_mask         ),
+			.data_wr_en        (data_wr_en        ),
+			.data_req          (data_req          ),
+			.data_ack          (data_ack          ),
+			.software_interrupt(software_interrupt),
+			.timer_interrupt   (timer_interrupt   ),
+			.external_interrupt(external_interrupt)
+	);
 
 endmodule
