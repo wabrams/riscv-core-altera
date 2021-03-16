@@ -76,11 +76,22 @@ module riscv_core_altera
 	always_comb begin : clockMux
 		clk = (mux_clk_sel) ? dbg_clk : div_clk;
 	end
-	
-	assign LEDR[0] = pll_clk;
-	assign LEDR[1] = rstz;
+
+	////////////////////////////////////////////////////////////////
+	//// LED Status Area
+	//////// LED8 - reset signal (lit up if system is reset)
+	//////// LED9 - clk signal   (to show clock to user)
+	////////////////////////////////////////////////////////////////
+	assign LEDR[0] = 1'b0;
+	assign LEDR[1] = 1'b0;
 	assign LEDR[2] = 1'b0;
-	assign LEDR[3] = 1'b1;
+	assign LEDR[3] = 1'b0;
+	assign LEDR[4] = 1'b0;
+	assign LEDR[5] = 1'b0;
+	assign LEDR[6] = 1'b0;
+	assign LEDR[7] = 1'b0;
+	assign LEDR[8] =  rst;
+	assign LEDR[9] =  clk;
 
 	kronos_core #(
 		.BOOT_ADDR            (32'h0),
