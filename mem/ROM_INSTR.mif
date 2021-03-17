@@ -1,6 +1,6 @@
 -- reference: https://www.intel.com/content/www/us/en/programmable/quartushelp/current/index.htm#reference/glossary/def_mif.htm
 
-DEPTH         = 13;     % depth is the number of words                      %
+DEPTH         =  4;     % depth is the number of words                      %
 WIDTH         = 32;     % width is the number of bits per word              %
 ADDRESS_RADIX = HEX;    % BIN, DEC, HEX, OCT, and UNS are all valid options %
 DATA_RADIX    = HEX;    % radix is what number base we display the type in  %

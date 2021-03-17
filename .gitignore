@@ -1,3 +1,4 @@
+doc/*
 db/*
 incremental_db/*
 greybox_tmp/*
@@ -10,4 +11,5 @@ riscv_core_altera.sld
 riscv_core_altera.pin
 riscv_core_altera.done
 c5_pin_model_dump.txt
-
+new_rtl_netlist
+old_rtl_netlist
