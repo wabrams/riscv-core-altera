@@ -93,6 +93,18 @@ module riscv_core_altera
 	assign LEDR[8] =  rst;
 	assign LEDR[9] =  clk;
 
+	////////////////////////////////////////////////////////////////
+	//// HEX Status Area
+	//////// HEX4 - instr_addr & 0x0000003C
+	//////// HEX5 - instr_addr & 0x000003C0
+	////////////////////////////////////////////////////////////////
+	hex HEXDISP5(instr_addr[9:6], HEX5);
+	hex HEXDISP4(instr_addr[5:2], HEX4);
+	assign HEX3 = ~7'b0;
+	assign HEX2 = ~7'b0;
+	assign HEX1 = ~7'b0;
+	assign HEX0 = ~7'b0;
+
 	kronos_core #(
 		.BOOT_ADDR            (32'h0),
 		.FAST_BRANCH          (0    ),

@@ -1,0 +1,12 @@
+OUTPUT_FORMAT(elf32-littleriscv)
+
+MEMORY 
+{
+  rom : ORIGIN = 0x0000, LENGTH = 1K
+}
+
+SECTIONS 
+{
+  .text : {} >rom
+  .data : {} >rom
+}
